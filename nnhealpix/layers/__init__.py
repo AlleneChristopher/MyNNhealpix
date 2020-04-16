@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 
 import numpy as np
-import keras
+#import keras
 import os.path
-from keras.layers import Conv1D
-import keras.backend as K
-from keras.engine.topology import Layer
+from tensorflow.keras.layers import Conv1D
+import tensorflow.keras.backend as K
+from tensorflow.keras.engine.topology import Layer
 import tensorflow as tf
 import nnhealpix as nnh
 
@@ -77,7 +77,7 @@ def Dgrade(nside_in, nside_out):
     def f(x):
         y = OrderMap(pixel_indices)(x)
         pool_size = int((nside_in / nside_out) ** 2.0)
-        y = keras.layers.AveragePooling1D(pool_size=pool_size)(y)
+        y = tensorflow.keras.layers.AveragePooling1D(pool_size=pool_size)(y)
         return y
 
     return f
@@ -126,7 +126,7 @@ def MaxPooling(nside_in, nside_out):
         * nside_out (integer): ``NSIDE`` parameter for the output maps.
     """
 
-    return Pooling(nside_in, nside_out, keras.layers.MaxPooling1D)
+    return Pooling(nside_in, nside_out, tensorflow.keras.layers.MaxPooling1D)
 
 
 def AveragePooling(nside_in, nside_out):
@@ -137,7 +137,7 @@ def AveragePooling(nside_in, nside_out):
         * nside_out (integer): ``NSIDE`` parameter for the output maps.
     """
 
-    return Pooling(nside_in, nside_out, keras.layers.AveragePooling1D)
+    return Pooling(nside_in, nside_out, tensorflow.keras.layers.AveragePooling1D)
 
 
 def DegradeAndConvNeighbours(
@@ -212,7 +212,7 @@ def ConvNeighbours(nside, kernel_size, filters, use_bias=False, trainable=True):
 
     def f(x):
         y = OrderMap(pixel_indices)(x)
-        y = keras.layers.Conv1D(
+        y = tensorflow.keras.layers.Conv1D(
             filters,
             kernel_size=kernel_size,
             strides=kernel_size,

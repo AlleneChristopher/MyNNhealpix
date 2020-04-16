@@ -209,7 +209,7 @@ def ConvNeighbours(nside, kernel_size, filters, use_bias=False, trainable=True):
         pixel_indices = np.load(file_in)
     except:
         pixel_indices = nnh.filter(nside)
-
+    print(nside) 
     def f(x):
         y = OrderMap(pixel_indices)(x)
         y = tensorflow.keras.layers.Conv1D(
